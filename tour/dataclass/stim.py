@@ -26,11 +26,11 @@ def to_impulses(x:Array, timeinfo:Array, f:float, padding_s:float = 0):
     secLen = endTimes[-1] + padding_s
     nDim = x.shape[0]
     if is_tensor(x):
-        nLen = torch.ceil(secLen * f).long()
+        nLen = torch.round(secLen * f).long()
         out = torch.zeros((nDim, nLen), dtype=x.dtype)
         timeIndices = torch.round(startTimes * f).long()
     else:
-        nLen = np.ceil( secLen * f).astype(int)
+        nLen = np.round( secLen * f).astype(int)
         out = np.zeros((nDim, nLen), dtype=x.dtype)
         timeIndices = np.round(startTimes * f).astype(int)
     out[:,timeIndices] = x

@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+ 
+[project]
+name = "pytour"
+dynamic = ["version"]          # read from tour/__init__.py, see [tool.hatch.version]
+authors = [
+  { name = "Powerfulbean", email = "powerfulbean@gmail.com" },
+]
+readme = "README.md"           # becomes the PyPI description; Markdown is detected from .md
+requires-python = ">=3.8"     # not in setup.py; stops hatchling tagging the wheel as Python 2-compatible
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "mne",
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "h5py",
+]
+ 
+[project.urls]
+Homepage = "https://github.com/powerfulbean/pytour"
+ 
+# Replaces the regex in setup.py: reads __version__ = "x.y.z" from this file
+[tool.hatch.version]
+path = "tour/__init__.py"
+ 
+# Folder that makes up the package (its name differs from the project name "pytour")
+[tool.hatch.build.targets.wheel]
+packages = ["tour"]

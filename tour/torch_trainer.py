@@ -13,17 +13,23 @@ def func_reduce_mean(values):
     else:
         return torch.mean(torch.cat(values), dim = 0)
 
+def close_logger_handlers(logger):
+    for h in logger.handlers[:]:        # copy the list, since we modify it while looping
+        logger.removeHandler(h)
+        h.close()
+
 def get_logger(
     file_dir, 
     console_level=logging.INFO, 
     file_level=logging.DEBUG, 
     file_name="logfile.log",
     if_print = True,
+    name = 'tray/trainer'
 ):
     #adopt from chat-gpt
 
     file_path = f"{file_dir}/{file_name}"
-    logger = logging.getLogger('tray/trainer')
+    logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)  # master level: allow all through to handlers
     logger.handlers.clear()  # prevent duplicate handlers on re-run
 
